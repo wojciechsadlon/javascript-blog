@@ -1,8 +1,3 @@
-// document.getElementById('test-button').addEventListener('click', function(){
-//     const links = document.querySelectorAll('.titles a');
-//     console.log('links:', links);
-//   });
-
 const titleClickHandler = function(){
     console.log(event);
 
@@ -30,7 +25,7 @@ const titleClickHandler = function(){
 
     /* [DONE] get 'href' attribute from the clicked link */
 
-    const articleId = (clickedElement.getAttribute('href')).replace('#','');
+    const articleId = clickedElement.getAttribute('href').replace('#','');
     console.log(articleId);
 
     /* [DONE] find the correct article using the selector (value of 'href' attribute) */
@@ -44,9 +39,28 @@ const titleClickHandler = function(){
 
 }
 
+const generateTitleLinks = function(){
+    let listTitles = document.querySelector('.list.titles');
+    listTitles.innerHTML = '';
+
+    const articles = document.querySelectorAll('.post');
+
+    for(let article of articles){
+        const articleId = article.getAttribute('id');
+        const articleTitle = article.querySelector('.post-title').innerHTML;
+
+        const listElement = document.createElement('li');
+
+        listElement.innerHTML ='<a href="' + articleId + '"><span>' + articleTitle + '</span></a>';
+
+        listTitles.appendChild(listElement);
+    }
+
+    const links = document.querySelectorAll('.titles a');
   
-const links = document.querySelectorAll('.titles a');
-  
-for(let link of links){
-  link.addEventListener('click', titleClickHandler);
+    for(let link of links){
+    link.addEventListener('click', titleClickHandler);
+    }
 }
+
+generateTitleLinks();
