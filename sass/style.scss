@@ -2,8 +2,10 @@
 
 /* Variables */
 
-$color-light: #fff;
+$color-olive: rgb(211, 226, 204);
 $color-dark: #444;
+$color-blue: rgb(32, 159, 243);
+$color-dark-green: rgb(17, 80, 31);
 
 $font-logo: 'Sacramento', cursive;
 $font-header: 'Oswald', sans-serif;
@@ -16,7 +18,7 @@ $font-text: 'Source Sans Pro', sans-serif;
 }
 
 body {
-  background: $color-light;
+  background: $color-olive;
   font-family: $font-text;
   color: $color-dark;
   font-weight: 300;
@@ -55,10 +57,11 @@ body {
 .posts {
   flex: 2 0 0;
   position: relative;
+  min-height: 50vh;
 }
 
 .sidebar, .posts {
-  background: $color-light;
+  background: $color-olive;
   margin-right: 10px;
   padding: 40px;
   border: 1px solid $color-dark;
@@ -81,6 +84,21 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  text-align: center;
+  font-size: 20px;
+
+  a {
+    color: $color-blue;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 1s all;
+    border-bottom: 2px solid rgba($color: black, $alpha: 0.0);
+
+    &:hover {
+      color: $color-dark-green;
+      border-color: rgba(17, 80, 31,0.5);
+    }
+  }
   .active {
     font-weight: bold;
   }
