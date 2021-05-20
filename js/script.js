@@ -1,43 +1,40 @@
-const titleClickHandler = function(){
-
-  /* [DONE] remove class 'active' from all article links  */
-  event.preventDefault();
-  const activeLinks = document.querySelectorAll('.titles a.active');
-  const clickedElement = this;
-  const activeArticles = document.querySelectorAll('.posts article.active');
+const removeActive = (selector) => {
+  const activeLinks = document.querySelectorAll(selector);
 
   for(let activeLink of activeLinks){
     activeLink.classList.remove('active');
   }
-  
-  /* [DONE] add class 'active' to the clicked link */
+};
+
+const addActive = (selector) => {
+  const activeLinks = document.querySelectorAll(selector);
+
+  for(let activeLink of activeLinks){
+    activeLink.classList.add('active');
+  }
+};
+
+const titleClickHandler = function(event){
+  event.preventDefault();
+  const clickedElement = this;
+
+  removeActive('titles a.active');
+  removeActive('.posts article.active');
 
   clickedElement.classList.add('active');
 
-  /* [DONE] remove class 'active' from all articles */
-
-  for(let activeArticle of activeArticles){
-    activeArticle.classList.remove('active');
-  }
-
-  /* [DONE] get 'href' attribute from the clicked link */
-
-  const articleId = clickedElement.getAttribute('href').replace('#','');
-
-  /* [DONE] find the correct article using the selector (value of 'href' attribute) */
+  const articleId = clickedElement.getAttribute('href');
 
   const chosenArticle = document.getElementById(articleId);
-
-  /* [DONE] add class 'active' to the correct article */
 
   chosenArticle.classList.add('active');
 };
 
-const generateTitleLinks = function(){
+const generateTitleLinks = (customSelector = '') => {
   let listTitles = document.querySelector('.list.titles');
   listTitles.innerHTML = '';
 
-  const articles = document.querySelectorAll('.post');
+  const articles = document.querySelectorAll('.post' + customSelector);
 
   for(let article of articles){
     const articleId = article.getAttribute('id');
@@ -51,10 +48,78 @@ const generateTitleLinks = function(){
   }
 
   const links = document.querySelectorAll('.titles a');
-  
+
   for(let link of links){
     link.addEventListener('click', titleClickHandler);
   }
 };
 
 generateTitleLinks();
+
+function generateTags(){
+  const articles = document.querySelectorAll('.post');
+
+  for(let article of articles){
+
+    const tagWrapper = article.querySelector('.list.list-horizontal');
+
+    tagWrapper.innerHTML = '';
+
+    const dataTags = article.getAttribute('data-tags').split(' ');
+
+    for(let dataTag of dataTags){
+      const htmlLink = '<a href="#tag-' + dataTag + '">' + dataTag + '</a>';
+      const linkElement = document.createElement('li');
+      linkElement.innerHTML = htmlLink;
+      tagWrapper.appendChild(linkElement);
+    }
+  }
+}
+
+generateTags();
+
+const tagClickHandler = function(event){
+  event.preventDefault();
+
+  /* make new constant named "clickedElement" and give it the value of "this" */
+  const clickedElement = this;
+
+  /* make a new constant "href" and read the attribute "href" of the clicked element */
+  const href = clickedElement.getAttribute('href');
+
+  /* make a new constant "tag" and extract tag from the "href" constant */
+  const tag = href.replace('#tag-','');
+
+  /* find all tag links with class active */
+  const activeTags = 'a.active[href^="#tag-"]';
+
+  /* START LOOP: for each active tag link */
+
+  removeActive(activeTags);
+
+  /* END LOOP: for each active tag link */
+
+  /* find all tag links with "href" attribute equal to the "href" constant */
+  const hrefLinks = 'a[href=:"' + href + '"]';
+
+  /* START LOOP: for each found tag link */
+
+  addActive(hrefLinks);
+
+  /* END LOOP: for each found tag link */
+
+  /* execute function "generateTitleLinks" with article selector as argument */
+  generateTitleLinks('[data-tags~="' + tag + '"]');
+
+};
+
+function addClickListenersToTags(){
+  const tagLinks = document.querySelectorAll('.post-tags a');
+
+  for(let tagLink of tagLinks){
+    tagLink.addEventListener('click', tagClickHandler());
+  }
+}
+
+addClickListenersToTags();
+
