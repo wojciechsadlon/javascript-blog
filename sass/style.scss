@@ -48,6 +48,7 @@ body {
 .wrapper {
   display: flex;
   margin-left: 10px;
+  height: 80vh;
 }
 
 .sidebar {
@@ -57,7 +58,6 @@ body {
 .posts {
   flex: 2 0 0;
   position: relative;
-  min-height: 50vh;
 }
 
 .sidebar, .posts {
@@ -132,6 +132,15 @@ body {
 
 .post-author {
   font-style: italic;
+
+  li {
+    list-style-type: none;
+
+    a {
+      text-decoration: none;
+      font-size: 20px;
+    }
+  }
 }
 
 .post-tags {
