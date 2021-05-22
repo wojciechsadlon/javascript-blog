@@ -56,8 +56,9 @@ const generateTitleLinks = (customSelector = '') => {
 
 generateTitleLinks();
 
-const generateItems = function(elementSelector, dataAttribute, hrefPrefix = '', splitValue){
+const generateItems = function(elementSelector, dataAttribute, hrefPrefix = '', listSelector, splitValue){
   const articles = document.querySelectorAll('.post');
+  let allItems = {};
 
   for(let article of articles){
 
@@ -68,19 +69,26 @@ const generateItems = function(elementSelector, dataAttribute, hrefPrefix = '', 
     const dataItems = article.getAttribute(dataAttribute).split(splitValue);
 
     for(let dataItem of dataItems){
-      const htmlLink = '<a href="#' + hrefPrefix + dataItem + '">' + dataItem + '</a>';
-      const linkElement = document.createElement('li');
-      linkElement.innerHTML = htmlLink;
-      itemWrapper.appendChild(linkElement);
+      const htmlLink = '<li><a href="#' + hrefPrefix + dataItem + '">' + dataItem + '</a></li>';
+      // const linkElement = document.createElement('li');
+      // linkElement.innerHTML = htmlLink;
+      // itemWrapper.appendChild(htmlLink);
+      itemWrapper.innerHTML += htmlLink;
+      if(allItems.indexOf(htmlLink) == -1){
+        allItems.push(htmlLink);
+      }
     }
   }
+
+  const itemList = document.querySelector(listSelector);
+  itemList.innerHTML = allItems.join(' ');
 };
 
 const generateTags = function() {
-  generateItems('.list.list-horizontal', 'data-tags', 'tag-', ' ');
+  generateItems('.list.list-horizontal', 'data-tags', 'tag-', '.tags', ' ');
 };
 const generateAuthors = function() {
-  generateItems('.post-author','data-author', 'author-');
+  generateItems('.post-author','data-author', 'author-', '.authors');
 };
 
 
@@ -143,4 +151,6 @@ function addClickListenersToAuthors(){
 }
 
 addClickListenersToAuthors();
+
+
 
