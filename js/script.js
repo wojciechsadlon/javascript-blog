@@ -56,19 +56,19 @@ const generateTitleLinks = (customSelector = '') => {
 
 generateTitleLinks();
 
-const generateItems = function(wrapperSelector, itemData, split = null, tag = ''){
+const generateItems = function(elementSelector, dataAttribute, hrefPrefix = '', splitValue){
   const articles = document.querySelectorAll('.post');
 
   for(let article of articles){
 
-    const itemWrapper = article.querySelector(wrapperSelector);
+    const itemWrapper = article.querySelector(elementSelector);
 
     itemWrapper.innerHTML = '';
 
-    const dataItems = article.getAttribute(itemData).split(split);
+    const dataItems = article.getAttribute(dataAttribute).split(splitValue);
 
     for(let dataItem of dataItems){
-      const htmlLink = '<a href="#' + tag + dataItem + '">' + dataItem + '</a>';
+      const htmlLink = '<a href="#' + hrefPrefix + dataItem + '">' + dataItem + '</a>';
       const linkElement = document.createElement('li');
       linkElement.innerHTML = htmlLink;
       itemWrapper.appendChild(linkElement);
@@ -76,7 +76,15 @@ const generateItems = function(wrapperSelector, itemData, split = null, tag = ''
   }
 };
 
-generateItems('.list.list-horizontal', 'data-tags', ' ', 'tag-');
+const generateTags = function() {
+  generateItems('.list.list-horizontal', 'data-tags', 'tag-', ' ');
+};
+const generateAuthors = function() {
+  generateItems('.post-author','data-author', 'author-');
+};
+
+
+generateTags();
 
 const tagClickHandler = function(event){
   event.preventDefault();
@@ -106,7 +114,7 @@ function addClickListenersToTags(){
 
 addClickListenersToTags();
 
-generateItems('.post-author','data-author', null, 'author-');
+generateAuthors();
 
 const authorClickHandler = function(event){
   event.preventDefault();
