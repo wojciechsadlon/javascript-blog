@@ -153,3 +153,39 @@ body {
     margin-right: 10px;
   }
 }
+
+.sidebar .tags  li{
+      display: inline-block;
+      padding-right: 10px;
+
+      &.tag-size-5 {
+        font-size: 140%;
+        a {
+          color:rgb(0, 26, 255);
+        }
+      }
+      &.tag-size-4 {
+        font-size: 130%;
+        a {
+          color:rgb(50, 26, 255);
+        }
+      }
+      &.tag-size-3 {
+        font-size: 120%;
+        a {
+          color:rgb(100, 26, 255);
+        }
+      }
+      &.tag-size-2 {
+        font-size: 110%;
+        a {
+          color:rgb(130, 26, 255);
+        }
+      }
+      &.tag-size-1 {
+        font-size: 100%;
+        a {
+          color:rgb(150, 26, 255);
+        }
+      }
+    }
