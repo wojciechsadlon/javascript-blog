@@ -144,12 +144,10 @@ const generateAuthors = function() {
 
     const authorsWrapper = article.querySelector('.post-author');
 
-    authorsWrapper.innerHTML = '';
-
     const author = article.getAttribute('data-author').split();
 
     const htmlLink = '<li><a href="#author-' + author + '">' + author + '</a></li>';
-    authorsWrapper.innerHTML += htmlLink;
+    authorsWrapper.innerHTML = htmlLink;
     if(!allAuthors[author]){
       allAuthors[author] = 1;
     } else {
