@@ -109,15 +109,15 @@ const generateTags = function() {
 
   for(let article of articles){
 
-    const itemWrapper = article.querySelector('.list.list-horizontal');
+    const tagsWrapper = article.querySelector('.list.list-horizontal');
 
-    itemWrapper.innerHTML = '';
+    tagsWrapper.innerHTML = '';
 
     const tags = article.getAttribute('data-tags').split(' ');
 
     for(let tag of tags){
       const htmlLink = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
-      itemWrapper.innerHTML += htmlLink;
+      tagsWrapper.innerHTML += htmlLink;
       if(!allTags[tag]){
         allTags[tag] = 1;
       } else {
@@ -142,21 +142,20 @@ const generateAuthors = function() {
 
   for(let article of articles){
 
-    const itemWrapper = article.querySelector('.post-author');
+    const authorsWrapper = article.querySelector('.post-author');
 
-    itemWrapper.innerHTML = '';
+    authorsWrapper.innerHTML = '';
 
-    const authors = article.getAttribute('data-author').split();
+    const author = article.getAttribute('data-author').split();
 
-    for(let author of authors){
-      const htmlLink = '<li><a href="#author-' + author + '">' + author + '</a></li>';
-      itemWrapper.innerHTML += htmlLink;
-      if(!allAuthors[author]){
-        allAuthors[author] = 1;
-      } else {
-        allAuthors[author]++;
-      }
+    const htmlLink = '<li><a href="#author-' + author + '">' + author + '</a></li>';
+    authorsWrapper.innerHTML += htmlLink;
+    if(!allAuthors[author]){
+      allAuthors[author] = 1;
+    } else {
+      allAuthors[author]++;
     }
+
   }
 
   const itemList = document.querySelector('.authors');
