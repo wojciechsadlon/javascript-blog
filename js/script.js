@@ -77,7 +77,6 @@ const generateTitleLinks = (customSelector = '') => {
   }
 };
 
-
 generateTitleLinks();
 
 const calculateTagsParams = function(tags){
@@ -158,7 +157,7 @@ const generateAuthors = function() {
 
     const authorsWrapper = article.querySelector('.post-author');
 
-    const author = article.getAttribute('data-author').split();
+    const author = article.getAttribute('data-author');
 
     const linkHtmlData = {id: author, title: author};
     const linkHtml = templates.authorLink(linkHtmlData);
